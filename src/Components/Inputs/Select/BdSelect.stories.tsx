@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { BdSelect } from './BdSelect';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { BdButton } from '../BdButton';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Inputs/Select',
@@ -12,8 +12,22 @@ const Template: ComponentStory<typeof BdSelect> = (args) => (
   <BdSelect {...args} />
 );
 
-export const DecisionDetails = Template.bind({});
-DecisionDetails.args = {
-  children: 'פרטי החלטה',
-  startIcon: <KeyboardArrowDownIcon />,
+export const Regular = Template.bind({});
+Regular.args = {
+  items: [{
+    value: 10,
+    text: 10
+  },{
+    value: 16,
+    text: 16
+  },{
+    value: 20,
+    text: 20
+  },{
+    value: 24,
+    text: 24
+  },{
+    value: '*',
+    text: "הכל"
+  }]
 };

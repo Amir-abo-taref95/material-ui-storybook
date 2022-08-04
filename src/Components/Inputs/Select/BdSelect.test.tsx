@@ -1,14 +1,29 @@
-import * as React from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { BdSelect } from './BdSelect';
+import {BdSelect} from './BdSelect';
 
 describe('<BdSelect />', () => {
-  test('it should mount', () => {
-    render(<BdSelect />);
+    test('it should mount', () => {
+        render(<BdSelect items={[{
+            value: 10,
+            text: 10
+        },{
+            value: 16,
+            text: 16
+        },{
+            value: 20,
+            text: 20
+        },{
+            value: 24,
+            text: 24
+        },{
+            value: '*',
+            text: "הכל"
+        }]}/>);
 
-    const bdSelect = screen.getByTestId('BdSelect');
+        const bdIconChip = screen.getByTestId('BdSelect');
 
-    expect(bdSelect).toBeInTheDocument();
-  });
+        expect(bdIconChip).toBeInTheDocument();
+    });
 });

@@ -1,0 +1,17 @@
+.BdTablePagination_root {
+    font-family: Rubik, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    margin-top: 50px;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

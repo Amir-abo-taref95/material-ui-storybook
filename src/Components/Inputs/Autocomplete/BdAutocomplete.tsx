@@ -1,112 +1,72 @@
-/* eslint-disable no-dupe-keys */
-import React, { useState } from 'react';
+import * as React from 'react';
 import styles from './BdAutocomplete.module.css';
+import {
+  Autocomplete,
+  AutocompleteProps,
+  InputAdornment,
+  TextField,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Checkbox from '@mui/material/Checkbox';
-import TextField, { TextFieldProps } from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { BdArrowIcon } from '../../DataDisplay/Icons/BdArrowIcon/BdArrowIcon';
-import { BdCheckBox } from '../CheckBox/BdCheckBox';
-const checkedIcon = <CheckBoxIcon />;
+import { BdArrowIcon } from '../../DataDisplay/Icons/BdArrowIcon';
 
-type IBdTextFieldProps = TextFieldProps & { skills: string };
+interface BdAutocompleteProps {
+  [key: string]: any;
+}
 
-const skills = [
-  'html',
-  'css',
-  'javascript',
-  'typescript',
-  'react',
-  'ahtml',
-  'acss',
-  'ajavascript',
-  'atypescript',
-  'areact',
-];
-
-const TextFieldPropsImpl = styled(TextField)<IBdTextFieldProps>(
-  ({ theme }) => ({
-    '& .Mui-focused': {
-      fontFamily: 'Rubik, sans-serif',
-      fontStyle: 'normal',
-      fontWeight: 400,
-      fontSize: '14px',
-      lineHeight: '17px',
-      color: '#000000',
-    },
-    '& label.Mui-focused': {
-      fontFamily: 'Rubik, sans-serif',
-      fontStyle: 'normal',
-      fontWeight: 400,
-      fontSize: '14px',
-      lineHeight: '17px',
-      color: '#7F7F7F',
-    },
-    '&  .MuiButtonBase-root': {
-      color: '#000000',
-      background: '#FFFFFF',
-    },
-    '& .MuiButtonBase-root': {
-      visibility: 'visible',
+const BdAutocompleteImpl = styled(Autocomplete)<BdAutocompleteProps>(
+  ({ open, theme }) => ({
+    '&.MuiAutocomplete-root': {
+      height: 36,
+      fieldset: {
+        border: '1px solid #7F7F7F !important',
+      },
+      '.MuiTextField-root': {
+        '.MuiInputLabel-root': {
+          color: '#7F7F7F',
+          fontFamily: 'Rubik, sans-serif',
+          fontWeight: 400,
+          //fontSize: '1.1667rem',
+          maxWidth: 'calc(85% - 24px)',
+        },
+      },
+      '.MuiInputAdornment-root': {
+        transform: open ? 'rotate(270deg)' : 'rotate(90deg)',
+        transition: 'all 0.2s linear',
+        cursor: 'pointer',
+      },
     },
   })
 );
 
-export const BdAutocomplete = (props: IBdTextFieldProps) => {
+export const BdAutocomplete = (props: BdAutocompleteProps) => {
+  const { options, label, ...rest } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const onAdornmentClicked = () => {
+    setOpen(!open);
+  };
   return (
-    <Autocomplete
-      popupIcon={<BdArrowIcon className={styles.rotate90} />}
-      multiple
-      autoComplete
-      fullWidth
-      clearIcon={true}
-      clearOnEscape
-      disableCloseOnSelect={true}
-      disableClearable={true}
-      disableListWrap
-      noOptionsText
-      disabledItemsFocusable
-      disablePortal={true}
-      limitTags={2}
-      options={skills}
-      getOptionLabel={(option) => option}
-      renderOption={(props, option, { selected }) => (
-        <li {...props}>
-          <BdCheckBox
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
-          {option}
-        </li>
-      )}
-      style={{ width: 500 }}
+    <BdAutocompleteImpl
+      {...rest}
+      size={'small'}
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      options={options}
       renderInput={(params) => (
-        <TextFieldPropsImpl
-          focused={false}
-          variant='outlined'
+        <TextField
           {...params}
-          {...props}
-          label='וועדה'
+          label={label}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <InputAdornment position='end' onClick={onAdornmentClicked}>
+                <BdArrowIcon />
+              </InputAdornment>
+            ),
+          }}
         />
       )}
     />
   );
 };
-
-{
-  /* <TextFieldPropsImpl
-error
-id="outlined-error-helper-text"
-label="Error"
-defaultValue="Hello World"
-helperText="Incorrect entry."
-color="error"
-/> */
-}
-
-// value={this.target.text}
-// onChange={(event) => this.setState({ text: event.target.value })}
-// error={text === ''}
-// helperText={text === "" ? 'Empty field!' : ' '}

@@ -1,28 +1,23 @@
 /* eslint-disable */
 import { BdAutocomplete } from './BdAutocomplete';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { InputAdornment, TextField } from '@mui/material';
+import React from 'react';
+import styles from '../../DataDisplay/Icons/Icons.stories.module.css';
+import { BdArrowIcon } from '../../DataDisplay/Icons/BdArrowIcon';
 
 export default {
-  title: 'Inputs/Autocomplete',
-  component: BdAutocomplete,
-} as ComponentMeta<typeof BdAutocomplete>;
+  title: 'BdAutocomplete',
+};
 
-const Template: ComponentStory<typeof BdAutocomplete> = (args) => (
-  <BdAutocomplete {...args} />
+export const Default = () => (
+  <BdAutocomplete
+    multiple
+    disablePortal
+    id='combo-box-demo'
+    options={['וועדה', 'הערות', 'לורם איפסום']}
+  />
 );
 
-export const AutoComplete = Template.bind({});
-AutoComplete.args = {
-  // skills: [
-  //   'html',
-  //   'css',
-  //   'javascript',
-  //   'typescript',
-  //   'react',
-  //   'ahtml',
-  //   'acss',
-  //   'ajavascript',
-  //   'atypescript',
-  //   'areact',
-  // ],
+Default.story = {
+  name: 'Autocomplete',
 };
